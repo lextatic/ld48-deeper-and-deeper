@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Trophy : MonoBehaviour
+public class TrophyItem : MonoBehaviour
 {
 	public Image _fishImage;
 	public TextMeshProUGUI _fishName;

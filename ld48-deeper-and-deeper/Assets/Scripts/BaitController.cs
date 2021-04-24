@@ -5,7 +5,9 @@ public class BaitController : MonoBehaviour
 {
 	private enum BaitState
 	{
-		InHand,
+		Disabled,
+		Ready,
+		Charging,
 		Launched,
 		InWater,
 		Recoil,
@@ -13,7 +15,7 @@ public class BaitController : MonoBehaviour
 	}
 
 	public Action HitWater;
-	public Action Restart;
+	public Action<FishData> Restart;
 
 	public GameObject Bait;
 	public GameObject BaitAnchor;
@@ -21,7 +23,9 @@ public class BaitController : MonoBehaviour
 	public float ControlModifier = 2f;
 	public float BaitDrownSpeed = 5f;
 	public float RecoilSpeed = 15f;
-	public float TempForce = 670f;
+	public float MinChargeForce = 200;
+	public float MaxChargeForce = 800; //670
+	public float ForceChargeSpeed = 300f;
 
 	public float EndDistanceFromSurface = 3f;
 
@@ -31,10 +35,23 @@ public class BaitController : MonoBehaviour
 
 	private Vector2 _waterHitPosition;
 
+	private float _currentForce;
+
+	public float ForcePercentage
+	{
+		get
+		{
+			return (_currentForce - MinChargeForce) / (MaxChargeForce - MinChargeForce);
+		}
+	}
+
+	public FishData HookedFishData { set; private get; }
+
 	void Start()
 	{
 		_rigidbody = Bait.GetComponent<Rigidbody2D>();
 		InitializeBait();
+		_baitState = BaitState.Ready;
 	}
 
 
@@ -42,13 +59,25 @@ public class BaitController : MonoBehaviour
 	{
 		switch (_baitState)
 		{
-			case BaitState.InHand:
-				if (Input.GetKeyDown(KeyCode.Space))
+			case BaitState.Ready:
+				if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+				{
+					_baitState = BaitState.Charging;
+					_currentForce = MinChargeForce;
+				}
+				break;
+
+			case BaitState.Charging:
+
+				_currentForce = Math.Min(_currentForce + ForceChargeSpeed * Time.deltaTime, MaxChargeForce);
+
+				if (Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(0))
 				{
 					_rigidbody.simulated = true;
-					_rigidbody.AddForce(new Vector2(TempForce, TempForce));
+					_rigidbody.AddForce(new Vector2(_currentForce, _currentForce));
 					_baitState = BaitState.Launched;
 				}
+
 				break;
 
 			case BaitState.InWater:
@@ -75,7 +104,7 @@ public class BaitController : MonoBehaviour
 
 				if (baitDistanceFromSurface.magnitude < EndDistanceFromSurface)
 				{
-					Restart?.Invoke();
+					Restart?.Invoke(HookedFishData);
 					InitializeBait();
 					return;
 				}
@@ -90,7 +119,6 @@ public class BaitController : MonoBehaviour
 	{
 		if (_baitState == BaitState.Launched && collision.CompareTag("Water"))
 		{
-			//_rigidbody.simulated = false;
 			_rigidbody.isKinematic = true;
 			_rigidbody.velocity = new Vector2(0, 0);
 			_baitState = BaitState.InWater;
@@ -107,7 +135,6 @@ public class BaitController : MonoBehaviour
 
 		if ((_baitState == BaitState.InWater ||
 			_baitState == BaitState.Recoil
-			//||_baitState == BaitState.Hooked
 			) && collision.CompareTag("Fish"))
 		{
 			_rigidbody.velocity = new Vector2(0, 0);
@@ -122,6 +149,12 @@ public class BaitController : MonoBehaviour
 		_rigidbody.transform.position = BaitAnchor.transform.position;
 		_rigidbody.isKinematic = false;
 		_rigidbody.simulated = false;
-		_baitState = BaitState.InHand;
+		_baitState = BaitState.Disabled;
+		HookedFishData = null;
+	}
+
+	public void ReadyBait()
+	{
+		_baitState = BaitState.Ready;
 	}
 }

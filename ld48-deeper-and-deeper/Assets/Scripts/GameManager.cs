@@ -6,45 +6,66 @@ public class GameManager : MonoBehaviour
 {
 	public List<FishData> AllFishes;
 
-	public Trophy TrophyViewPrefab;
-
-	public GameObject TrophyPannel;
-
-	public RectTransform TrophiesListPanel;
-
 	public BaitController Bait;
 
-	private Dictionary<FishData, Trophy> _setDataTrophy;
+	public TrophyView TrophyView;
 
 	void Start()
 	{
-		TrophyPannel.SetActive(false);
+		TrophyView.InitializeTrophyView(AllFishes);
+		Bait.Restart += BaitRestarted;
+	}
 
-		_setDataTrophy = new Dictionary<FishData, Trophy>();
-
-		foreach (var fishData in AllFishes)
+	private void Update()
+	{
+		if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape))
+			&& TrophyView.gameObject.activeInHierarchy) // Still gambiarra
 		{
-			fishData.Caught = false;
-			var trophyView = Instantiate(TrophyViewPrefab);
-			trophyView.InitializeTrophy(fishData);
-			_setDataTrophy.Add(fishData, trophyView);
-			trophyView.GetComponent<RectTransform>().SetParent(TrophiesListPanel);
-
+			CloseMenu();
 		}
 	}
 
-	public void CatchFish(FishData fishData)
+	public void BaitRestarted(FishData fishData)
 	{
-		if (fishData.Caught) return;
+		// Already got everything!
+		//if (AllFishes.Count(x => x.Caught == false) == 0)
+		//{
+		//	OpenMenu("You've already caught everything! Go home.");
+		//	return;
+		//}
 
-		_setDataTrophy[fishData].SetTrophy();
+		if (!fishData)
+		{
+			OpenMenu("Nothing this time...");
+			return;
+		}
+
+		if (fishData.Caught)
+		{
+			OpenMenu("Already caught this one.");
+			return;
+		}
+
 		fishData.Caught = true;
+		TrophyView.SetNewTrophy(fishData);
 
 		if (AllFishes.Count(x => x.Caught == false) == 0)
 		{
-			Debug.Log("Victory!");
+			OpenMenu("Victory!");
+			return;
 		}
 
-		TrophyPannel.SetActive(true);
+		OpenMenu($"New fish: {fishData.Name}");
+	}
+
+	public void OpenMenu(string info)
+	{
+		TrophyView.ShowTrophyPanel(info);
+	}
+
+	public void CloseMenu()
+	{
+		TrophyView.CloseTrophyPanel();
+		Bait.ReadyBait();
 	}
 }

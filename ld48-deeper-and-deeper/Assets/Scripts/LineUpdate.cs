@@ -34,7 +34,7 @@ public class LineUpdate : MonoBehaviour
 		_baitIndex++;
 	}
 
-	private void OnRestartBait()
+	private void OnRestartBait(FishData fishData)
 	{
 		LineRenderer.positionCount--;
 		_baitIndex--;
