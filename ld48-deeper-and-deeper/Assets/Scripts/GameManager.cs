@@ -10,16 +10,32 @@ public class GameManager : MonoBehaviour
 
 	public TrophyView TrophyView;
 
+	private bool _isInMenu;
+
 	void Start()
 	{
 		TrophyView.InitializeTrophyView(AllFishes);
 		Bait.Restart += BaitRestarted;
+		_isInMenu = false;
 	}
 
 	private void Update()
 	{
-		if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape))
-			&& TrophyView.gameObject.activeInHierarchy) // Still gambiarra
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			if (!_isInMenu)
+			{
+				OpenMenu("Paused");
+				Time.timeScale = 0;
+				return;
+			}
+
+			CloseMenu();
+
+			return;
+		}
+
+		if (Input.GetKeyUp(KeyCode.Space) && _isInMenu)
 		{
 			CloseMenu();
 		}
@@ -61,11 +77,20 @@ public class GameManager : MonoBehaviour
 	public void OpenMenu(string info)
 	{
 		TrophyView.ShowTrophyPanel(info);
+		_isInMenu = true;
 	}
 
 	public void CloseMenu()
 	{
 		TrophyView.CloseTrophyPanel();
+		_isInMenu = false;
+
+		if (Time.timeScale == 0)
+		{
+			Time.timeScale = 1;
+			return;
+		}
+
 		Bait.ReadyBait();
 	}
 }
