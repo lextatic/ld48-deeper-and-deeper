@@ -1219,6 +1219,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Bait: {fileID: 920591793}
   BaitAnchor: {fileID: 1691614672}
+  ControlModifier: 2
+  BaitDrownSpeed: 5
+  RecoilSpeed: 15
+  TempForce: 670
+  EndDistanceFromSurface: 3
 --- !u!1 &1064920044
 GameObject:
   m_ObjectHideFlags: 0

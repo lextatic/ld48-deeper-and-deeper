@@ -17,6 +17,13 @@ public class BaitController : MonoBehaviour
 	public GameObject Bait;
 	public GameObject BaitAnchor;
 
+	public float ControlModifier = 2f;
+	public float BaitDrownSpeed = 5f;
+	public float RecoilSpeed = 15f;
+	public float TempForce = 670f;
+
+	public float EndDistanceFromSurface = 3f;
+
 	private BaitState _baitState;
 
 	private Rigidbody2D _rigidbody;
@@ -38,7 +45,7 @@ public class BaitController : MonoBehaviour
 				if (Input.GetKeyDown(KeyCode.Space))
 				{
 					_rigidbody.simulated = true;
-					_rigidbody.AddForce(new Vector2(670, 670));
+					_rigidbody.AddForce(new Vector2(TempForce, TempForce));
 					_baitState = BaitState.Launched;
 				}
 				break;
@@ -54,22 +61,24 @@ public class BaitController : MonoBehaviour
 		switch (_baitState)
 		{
 			case BaitState.InWater:
-				_rigidbody.MovePosition(_rigidbody.position + new Vector2(0, -5 * Time.deltaTime));
+
+				Input.GetAxis("Horizontal");
+
+				_rigidbody.MovePosition(_rigidbody.position + new Vector2(Input.GetAxis("Horizontal") * ControlModifier * Time.deltaTime, -BaitDrownSpeed * Time.deltaTime));
 				break;
 
 			case BaitState.Recoil:
 
-				//Vector2 baitAnchorPosition = new Vector2(BaitAnchor.transform.position.x, BaitAnchor.transform.position.y);
 				Vector2 baitDistanceFromSurface = _waterHitPosition - _rigidbody.position;
 
-				if (baitDistanceFromSurface.magnitude < 3f)
+				if (baitDistanceFromSurface.magnitude < EndDistanceFromSurface)
 				{
 					Restart?.Invoke();
 					InitializeBait();
 					return;
 				}
 
-				_rigidbody.MovePosition(_rigidbody.position + (baitDistanceFromSurface).normalized * Time.deltaTime * 15);
+				_rigidbody.MovePosition(_rigidbody.position + (baitDistanceFromSurface).normalized * Time.deltaTime * RecoilSpeed);
 
 				break;
 		}
