@@ -6,4 +6,5 @@ public class FishData : ScriptableObject
 	public string Name;
 	public Sprite Sprite;
 	public float Speed;
+	public bool Caught;
 }

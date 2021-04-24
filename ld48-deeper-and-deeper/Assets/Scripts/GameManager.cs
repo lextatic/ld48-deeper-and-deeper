@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour
 
 		foreach (var fishData in AllFishes)
 		{
+			fishData.Caught = false;
 			var trophyView = Instantiate(TrophyViewPrefab);
 			trophyView.InitializeTrophy(fishData);
 			_setDataTrophy.Add(fishData, trophyView);
@@ -33,8 +35,15 @@ public class GameManager : MonoBehaviour
 
 	public void CatchFish(FishData fishData)
 	{
+		if (fishData.Caught) return;
 
 		_setDataTrophy[fishData].SetTrophy();
+		fishData.Caught = true;
+
+		if (AllFishes.Count(x => x.Caught == false) == 0)
+		{
+			Debug.Log("Victory!");
+		}
 
 		TrophyPannel.SetActive(true);
 	}

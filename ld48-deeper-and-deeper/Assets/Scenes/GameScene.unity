@@ -1928,7 +1928,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef018796a2e3c1d4e8d128086857a025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllFishes: []
+  AllFishes:
+  - {fileID: 11400000, guid: e4f865863a857b24e80ce49d12583624, type: 2}
+  - {fileID: 11400000, guid: 9cb15b35c0a07624a915e23924ff721a, type: 2}
+  - {fileID: 11400000, guid: 58ad6ead4ef1fad49848241261a7fe7a, type: 2}
   TrophyViewPrefab: {fileID: 3736161399366483470, guid: a43d97ee491a85745b4ece2094c373ed, type: 3}
   TrophyPannel: {fileID: 487730484}
   TrophiesListPanel: {fileID: 16704073}
