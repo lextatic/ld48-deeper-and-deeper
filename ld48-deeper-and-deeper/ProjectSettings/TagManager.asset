@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Water
   - Bottom
+  - Fish
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - Terrain
   - MyWater
   - Bait
-  - 
+  - Fish
   - 
   - 
   - 
@@ -43,12 +44,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Game
+  - name: Boat
     uniqueID: 3088688123
     locked: 0
   - name: Water
     uniqueID: 2263223695
     locked: 0
-  - name: Background
+  - name: Fish
+    uniqueID: 2332445023
+    locked: 0
+  - name: Ground
     uniqueID: 2001126101
     locked: 0

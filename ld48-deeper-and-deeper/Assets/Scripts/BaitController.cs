@@ -8,7 +8,8 @@ public class BaitController : MonoBehaviour
 		InHand,
 		Launched,
 		InWater,
-		Recoil
+		Recoil,
+		Hooked
 	}
 
 	public Action HitWater;
@@ -67,6 +68,7 @@ public class BaitController : MonoBehaviour
 				_rigidbody.MovePosition(_rigidbody.position + new Vector2(Input.GetAxis("Horizontal") * ControlModifier * Time.deltaTime, -BaitDrownSpeed * Time.deltaTime));
 				break;
 
+			case BaitState.Hooked:
 			case BaitState.Recoil:
 
 				Vector2 baitDistanceFromSurface = _waterHitPosition - _rigidbody.position;
@@ -86,8 +88,6 @@ public class BaitController : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		Debug.Log($"OnTriggerEnter2D {collision.name}");
-
 		if (_baitState == BaitState.Launched && collision.CompareTag("Water"))
 		{
 			//_rigidbody.simulated = false;
@@ -103,6 +103,17 @@ public class BaitController : MonoBehaviour
 		{
 			_rigidbody.velocity = new Vector2(0, 0);
 			_baitState = BaitState.Recoil;
+		}
+
+		if ((_baitState == BaitState.InWater ||
+			_baitState == BaitState.Recoil
+			//||_baitState == BaitState.Hooked
+			) && collision.CompareTag("Fish"))
+		{
+			_rigidbody.velocity = new Vector2(0, 0);
+			_baitState = BaitState.Hooked;
+
+			collision.GetComponent<FishController>().Baited(this);
 		}
 	}
 
