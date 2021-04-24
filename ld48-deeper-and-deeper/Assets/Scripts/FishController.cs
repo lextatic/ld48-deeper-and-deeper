@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class FishController : MonoBehaviour
 {
+	public FishData FishData;
+
 	public Transform LeftBoundsPosition;
 	public Transform RightBoundsPosition;
-
-	public float Speed = 2f;
 
 	private bool _moveRight = true;
 	private bool _hasBeenHooked = false;
@@ -13,6 +13,8 @@ public class FishController : MonoBehaviour
 
 	private void Start()
 	{
+		GetComponent<SpriteRenderer>().sprite = FishData.Sprite;
+
 		var randomXPosition = Random.Range(LeftBoundsPosition.position.x, RightBoundsPosition.position.x);
 		transform.position = new Vector3(randomXPosition, transform.position.y, transform.position.z);
 
@@ -28,7 +30,7 @@ public class FishController : MonoBehaviour
 
 		if (_moveRight)
 		{
-			transform.Translate(Speed * Time.deltaTime, 0, 0);
+			transform.Translate(FishData.Speed * Time.deltaTime, 0, 0);
 			if (transform.position.x >= RightBoundsPosition.position.x)
 			{
 				Flip();
@@ -36,7 +38,7 @@ public class FishController : MonoBehaviour
 		}
 		else
 		{
-			transform.Translate(-Speed * Time.deltaTime, 0, 0);
+			transform.Translate(-FishData.Speed * Time.deltaTime, 0, 0);
 			if (transform.position.x <= LeftBoundsPosition.position.x)
 			{
 				Flip();
