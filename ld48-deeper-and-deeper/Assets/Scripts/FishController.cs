@@ -10,9 +10,11 @@ public class FishController : MonoBehaviour
 	private bool _moveRight = true;
 	private bool _hasBeenHooked = false;
 	private BaitController _bait;
+	private GameManager _gameManager;
 
 	private void Start()
 	{
+		_gameManager = FindObjectOfType<GameManager>();
 		GetComponent<SpriteRenderer>().sprite = FishData.Sprite;
 
 		var randomXPosition = Random.Range(LeftBoundsPosition.position.x, RightBoundsPosition.position.x);
@@ -65,6 +67,7 @@ public class FishController : MonoBehaviour
 
 	public void DespawnFish()
 	{
+		_gameManager.CatchFish(FishData);
 		_bait.Restart -= DespawnFish;
 		Destroy(gameObject);
 	}
