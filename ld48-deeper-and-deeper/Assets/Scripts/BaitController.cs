@@ -23,6 +23,7 @@ public class BaitController : MonoBehaviour
 
 	public GameObject Bait;
 	public GameObject BaitAnchor;
+	public GameObject Light;
 
 	public float ControlModifier = 2f;
 	public float BaitDrownSpeed = 5f;
@@ -143,7 +144,7 @@ public class BaitController : MonoBehaviour
 			_rigidbody.velocity = new Vector2(0, 0);
 			_baitState = BaitState.InWater;
 			HitWater?.Invoke();
-
+			Light.SetActive(true);
 			_waterHitPosition = _rigidbody.position;
 		}
 
@@ -173,6 +174,7 @@ public class BaitController : MonoBehaviour
 		_rigidbody.simulated = false;
 		_baitState = BaitState.Disabled;
 		HookedFishData = null;
+		Light.SetActive(false);
 	}
 
 	public void ReadyBait()
