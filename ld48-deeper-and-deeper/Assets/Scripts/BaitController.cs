@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using UnityEngine;
 
@@ -28,7 +29,7 @@ public class BaitController : MonoBehaviour
 	public float RecoilSpeed = 15f;
 	public float MinChargeForce = 200;
 	public float MaxChargeForce = 800; //670
-	public float ForceChargeSpeed = 300f;
+	public float ForceChargeSpeed = 3f;//300f;
 
 	public float EndDistanceFromSurface = 3f;
 
@@ -39,6 +40,8 @@ public class BaitController : MonoBehaviour
 	private Vector2 _waterHitPosition;
 
 	private float _currentForce;
+
+	private Tweener _currentForceTweener;
 
 	public float ForcePercentage
 	{
@@ -58,6 +61,7 @@ public class BaitController : MonoBehaviour
 	}
 
 
+
 	void Update()
 	{
 		switch (_baitState)
@@ -65,18 +69,20 @@ public class BaitController : MonoBehaviour
 			case BaitState.Ready:
 				if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
 				{
-					ChargingStarted?.Invoke();
 					_baitState = BaitState.Charging;
 					_currentForce = MinChargeForce;
+					ChargingStarted?.Invoke();
+
+					_currentForceTweener = DOTween.To(() => _currentForce, x => _currentForce = x, MaxChargeForce, ForceChargeSpeed).SetEase(Ease.InSine).SetLoops(-1, LoopType.Yoyo).SetUpdate(UpdateType.Normal, false);
 				}
 				break;
 
 			case BaitState.Charging:
 
-				_currentForce = Math.Min(_currentForce + ForceChargeSpeed * Time.deltaTime, MaxChargeForce);
-
 				if (Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(0))
 				{
+					_currentForceTweener.Kill();
+
 					BaitLaunched?.Invoke();
 					_rigidbody.simulated = true;
 					_rigidbody.AddForce(new Vector2(_currentForce, _currentForce));

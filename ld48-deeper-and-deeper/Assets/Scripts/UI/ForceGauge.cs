@@ -24,6 +24,7 @@ public class ForceGauge : MonoBehaviour
 	private void OnBaitLaunched()
 	{
 		gameObject.SetActive(false);
+		SpriteMask.alphaCutoff = 0;
 	}
 
 }
