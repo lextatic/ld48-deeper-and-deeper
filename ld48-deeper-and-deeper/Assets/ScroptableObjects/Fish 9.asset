@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a574902d8d60444a9238ebca077f3ac, type: 3}
-  m_Name: Fish 2
+  m_Name: Fish 9
   m_EditorClassIdentifier: 
-  Name: Fish 2
-  Sprite: {fileID: 21300000, guid: 2b32e4fc3d6036047acb0bd24cccae73, type: 3}
-  Speed: 1.7
+  Name: Fish 9
+  Sprite: {fileID: 21300000, guid: 42b8ddc963d387549897a70cfce06d64, type: 3}
+  Speed: 1.1
   Caught: 0

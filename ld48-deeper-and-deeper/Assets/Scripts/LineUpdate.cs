@@ -30,6 +30,7 @@ public class LineUpdate : MonoBehaviour
 
 	private void OnBaitHitWater()
 	{
+		LineRenderer.SetPosition(_baitIndex, new Vector3(Bait.transform.position.x, -1.7f, 0));
 		LineRenderer.positionCount++;
 		_baitIndex++;
 	}

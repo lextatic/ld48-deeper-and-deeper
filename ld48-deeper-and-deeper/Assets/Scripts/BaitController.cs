@@ -86,6 +86,7 @@ public class BaitController : MonoBehaviour
 					BaitLaunched?.Invoke();
 					_rigidbody.simulated = true;
 					_rigidbody.AddForce(new Vector2(_currentForce, _currentForce));
+					//_rigidbody.AddForce(new Vector2(1300, 1300));
 					_baitState = BaitState.Launched;
 				}
 
