@@ -7,11 +7,23 @@ public class ForceGauge : MonoBehaviour
 	void Start()
 	{
 		SpriteMask.alphaCutoff = 0;
+		Bait.ChargingStarted += OnChargingStarted;
+		Bait.BaitLaunched += OnBaitLaunched;
+		gameObject.SetActive(false);
 	}
-
 
 	void Update()
 	{
 		SpriteMask.alphaCutoff = Bait.ForcePercentage;
 	}
+
+	private void OnChargingStarted()
+	{
+		gameObject.SetActive(true);
+	}
+	private void OnBaitLaunched()
+	{
+		gameObject.SetActive(false);
+	}
+
 }

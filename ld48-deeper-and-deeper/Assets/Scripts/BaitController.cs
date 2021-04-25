@@ -15,6 +15,9 @@ public class BaitController : MonoBehaviour
 	}
 
 	public Action HitWater;
+	public Action ChargingStarted;
+	public Action BaitLaunched;
+	public Action HookedFish;
 	public Action<FishData> Restart;
 
 	public GameObject Bait;
@@ -62,6 +65,7 @@ public class BaitController : MonoBehaviour
 			case BaitState.Ready:
 				if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
 				{
+					ChargingStarted?.Invoke();
 					_baitState = BaitState.Charging;
 					_currentForce = MinChargeForce;
 				}
@@ -73,6 +77,7 @@ public class BaitController : MonoBehaviour
 
 				if (Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(0))
 				{
+					BaitLaunched?.Invoke();
 					_rigidbody.simulated = true;
 					_rigidbody.AddForce(new Vector2(_currentForce, _currentForce));
 					_baitState = BaitState.Launched;
@@ -139,6 +144,8 @@ public class BaitController : MonoBehaviour
 		{
 			_rigidbody.velocity = new Vector2(0, 0);
 			_baitState = BaitState.Hooked;
+
+			HookedFish?.Invoke();
 
 			collision.GetComponent<FishController>().Baited(this);
 		}

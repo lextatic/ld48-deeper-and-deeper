@@ -1,9 +1,13 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+	public Action MenuOpened;
+
 	public List<FishData> AllFishes;
 
 	public BaitController Bait;
@@ -78,6 +82,7 @@ public class GameManager : MonoBehaviour
 	{
 		TrophyView.ShowTrophyPanel(info);
 		_isInMenu = true;
+		MenuOpened?.Invoke();
 	}
 
 	public void CloseMenu()
@@ -92,5 +97,10 @@ public class GameManager : MonoBehaviour
 		}
 
 		Bait.ReadyBait();
+	}
+
+	public void RestartGame()
+	{
+		SceneManager.LoadScene(0);
 	}
 }
