@@ -11,6 +11,14 @@ PrefabInstance:
       propertyPath: FishData
       value: 
       objectReference: {fileID: 11400000, guid: e4f865863a857b24e80ce49d12583624, type: 2}
+    - target: {fileID: 5941680980949153238, guid: 743db76c74a4f534687ef68106e4489b, type: 3}
+      propertyPath: m_Radius
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941680980949153238, guid: 743db76c74a4f534687ef68106e4489b, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.08
+      objectReference: {fileID: 0}
     - target: {fileID: 5941680982172699280, guid: 743db76c74a4f534687ef68106e4489b, type: 3}
       propertyPath: m_RootOrder
       value: 0

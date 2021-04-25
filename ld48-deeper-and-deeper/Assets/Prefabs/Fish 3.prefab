@@ -15,6 +15,18 @@ PrefabInstance:
       propertyPath: FishData
       value: 
       objectReference: {fileID: 11400000, guid: 58ad6ead4ef1fad49848241261a7fe7a, type: 2}
+    - target: {fileID: 5941680980949153238, guid: 743db76c74a4f534687ef68106e4489b, type: 3}
+      propertyPath: m_Radius
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941680980949153238, guid: 743db76c74a4f534687ef68106e4489b, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941680980949153238, guid: 743db76c74a4f534687ef68106e4489b, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.04
+      objectReference: {fileID: 0}
     - target: {fileID: 5941680982172699280, guid: 743db76c74a4f534687ef68106e4489b, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -67,5 +79,9 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -1.93
       objectReference: {fileID: 0}
+    - target: {fileID: 6273992365233276725, guid: 743db76c74a4f534687ef68106e4489b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6a362388bd4157c48ad644a1ae9dac42, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 743db76c74a4f534687ef68106e4489b, type: 3}
