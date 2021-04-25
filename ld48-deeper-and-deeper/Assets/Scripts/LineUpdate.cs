@@ -2,21 +2,16 @@ using UnityEngine;
 
 public class LineUpdate : MonoBehaviour
 {
-	private enum LineState
-	{
-
-	}
-
 	public GameObject Anchor;
-	public GameObject Bait;
+	public BaitController Bait;
 	public LineRenderer LineRenderer;
 
 	private int _baitIndex;
 
 	void Start()
 	{
-		Bait.GetComponent<BaitController>().HitWater += OnBaitHitWater;
-		Bait.GetComponent<BaitController>().Restart += OnRestartBait;
+		Bait.HitWater += OnBaitHitWater;
+		Bait.Restart += OnRestartBait;
 		LineRenderer.SetPosition(0, Anchor.transform.position);
 		_baitIndex = 1;
 	}
@@ -26,6 +21,13 @@ public class LineUpdate : MonoBehaviour
 	{
 
 		LineRenderer.SetPosition(_baitIndex, Bait.transform.position);
+
+		if (_baitIndex == 2)
+		{
+			var lerp = Mathf.Lerp(LineRenderer.GetPosition(_baitIndex - 1).x, Bait.transform.position.x, Time.deltaTime);
+			LineRenderer.SetPosition(_baitIndex - 1, new Vector3(lerp, LineRenderer.GetPosition(_baitIndex - 1).y, LineRenderer.GetPosition(_baitIndex - 1).z));
+			Bait.WaterHitXPosition = lerp;
+		}
 	}
 
 	private void OnBaitHitWater()

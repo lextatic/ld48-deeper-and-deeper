@@ -33,6 +33,14 @@ public class BaitController : MonoBehaviour
 
 	public float EndDistanceFromSurface = 3f;
 
+	public float WaterHitXPosition
+	{
+		set
+		{
+			_waterHitPosition = new Vector2(value, _waterHitPosition.y);
+		}
+	}
+
 	private BaitState _baitState;
 
 	private Rigidbody2D _rigidbody;
