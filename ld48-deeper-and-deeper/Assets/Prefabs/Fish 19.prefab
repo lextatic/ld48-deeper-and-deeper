@@ -1,5 +1,100 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5222342049766417890
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 225080616384334065}
+  - component: {fileID: 8674693037891502718}
+  - component: {fileID: 7923095345603003726}
+  m_Layer: 9
+  m_Name: Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &225080616384334065
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5222342049766417890}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.256, y: 0.11, z: 0}
+  m_LocalScale: {x: 0.15, y: 0.15, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8627867924635355442}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!331 &8674693037891502718
+SpriteMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5222342049766417890}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10758, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: e33562c4a897aa04ba044d5c0283f991, type: 3}
+  m_MaskAlphaCutoff: 0
+  m_FrontSortingLayerID: 0
+  m_BackSortingLayerID: 0
+  m_FrontSortingLayer: 0
+  m_BackSortingLayer: 0
+  m_FrontSortingOrder: 0
+  m_BackSortingOrder: 0
+  m_IsCustomRangeActive: 0
+  m_SpriteSortPoint: 0
+--- !u!114 &7923095345603003726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5222342049766417890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45988783bdeaa13419b597c2baefd07e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightMask: {fileID: 8674693037891502718}
 --- !u!1001 &2722794815510789347
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11,6 +106,22 @@ PrefabInstance:
       propertyPath: FishData
       value: 
       objectReference: {fileID: 11400000, guid: c8b20119e020fe044b986ef0d7e10f7b, type: 2}
+    - target: {fileID: 5941680980949153233, guid: 743db76c74a4f534687ef68106e4489b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.6697202
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941680980949153233, guid: 743db76c74a4f534687ef68106e4489b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.6697202
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941680980949153233, guid: 743db76c74a4f534687ef68106e4489b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.6697202
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941680980949153238, guid: 743db76c74a4f534687ef68106e4489b, type: 3}
+      propertyPath: m_Radius
+      value: 0.16
+      objectReference: {fileID: 0}
     - target: {fileID: 5941680982172699280, guid: 743db76c74a4f534687ef68106e4489b, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -59,5 +170,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fish 19
       objectReference: {fileID: 0}
+    - target: {fileID: 6273992365233276725, guid: 743db76c74a4f534687ef68106e4489b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5b8b29887230acc48a716fffe1b1d60b, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 743db76c74a4f534687ef68106e4489b, type: 3}
+--- !u!4 &8627867924635355442 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5941680980949153233, guid: 743db76c74a4f534687ef68106e4489b, type: 3}
+  m_PrefabInstance: {fileID: 2722794815510789347}
+  m_PrefabAsset: {fileID: 0}

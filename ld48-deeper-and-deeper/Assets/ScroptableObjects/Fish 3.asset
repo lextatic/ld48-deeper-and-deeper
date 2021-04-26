@@ -15,4 +15,4 @@ MonoBehaviour:
   Name: Fish 3
   Sprite: {fileID: 21300000, guid: 6a362388bd4157c48ad644a1ae9dac42, type: 3}
   Speed: 1.5
-  Caught: 0
+  Caught: 1

@@ -34,6 +34,21 @@ public class BaitController : MonoBehaviour
 
 	public float EndDistanceFromSurface = 3f;
 
+	public AudioSource SFXAudioSource;
+
+	public AudioSource RodAudioSource;
+	public AudioSource BGNoiseAudioSource;
+
+	public AudioClip ThrowLoopClip;
+	public AudioClip DropLoopClip;
+	public AudioClip RecoilLoopClip;
+
+	public SimpleAudioEvent SplashSound;
+	public SimpleAudioEvent ThrowSound;
+	public SimpleAudioEvent ThudSound;
+	public SimpleAudioEvent HookedSound;
+
+
 	public float WaterHitXPosition
 	{
 		set
@@ -92,6 +107,11 @@ public class BaitController : MonoBehaviour
 				{
 					_currentForceTweener.Kill();
 
+					RodAudioSource.clip = ThrowLoopClip;
+					RodAudioSource.Play();
+
+					ThrowSound.Play(SFXAudioSource);
+
 					BaitLaunched?.Invoke();
 					_rigidbody.simulated = true;
 					_rigidbody.AddForce(new Vector2(_currentForce, _currentForce));
@@ -125,8 +145,11 @@ public class BaitController : MonoBehaviour
 
 				if (baitDistanceFromSurface.magnitude < EndDistanceFromSurface)
 				{
+					BGNoiseAudioSource.Stop();
+					RodAudioSource.Stop();
 					Restart?.Invoke(HookedFishData);
 					InitializeBait();
+					SplashSound.Play(BGNoiseAudioSource);
 					return;
 				}
 
@@ -146,12 +169,20 @@ public class BaitController : MonoBehaviour
 			HitWater?.Invoke();
 			Light.SetActive(true);
 			_waterHitPosition = _rigidbody.position;
+			SplashSound.Play(BGNoiseAudioSource);
+			RodAudioSource.clip = DropLoopClip;
+			RodAudioSource.Play();
+			BGNoiseAudioSource.Play();
 		}
 
 		if (_baitState == BaitState.InWater && collision.CompareTag("Bottom"))
 		{
 			_rigidbody.velocity = new Vector2(0, 0);
 			_baitState = BaitState.Recoil;
+			RodAudioSource.clip = RecoilLoopClip;
+			RodAudioSource.Play();
+
+			ThudSound.Play(SFXAudioSource);
 		}
 
 		if ((_baitState == BaitState.InWater ||
@@ -164,6 +195,10 @@ public class BaitController : MonoBehaviour
 			HookedFish?.Invoke();
 
 			collision.GetComponent<FishController>().Baited(this);
+			RodAudioSource.clip = RecoilLoopClip;
+			RodAudioSource.Play();
+
+			HookedSound.Play(SFXAudioSource);
 		}
 	}
 

@@ -48,11 +48,11 @@ public class GameManager : MonoBehaviour
 	public void BaitRestarted(FishData fishData)
 	{
 		// Already got everything!
-		//if (AllFishes.Count(x => x.Caught == false) == 0)
-		//{
-		//	OpenMenu("You've already caught everything! Go home.");
-		//	return;
-		//}
+		if (AllFishes.Count(x => x.Caught == false) == 0)
+		{
+			OpenMenu("You've already caught everything! Go home...");
+			return;
+		}
 
 		if (!fishData)
 		{
@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
 
 		if (AllFishes.Count(x => x.Caught == false) == 0)
 		{
-			OpenMenu("Victory!");
+			OpenMenu("Congratulations! You've got'em all!");
 			return;
 		}
 

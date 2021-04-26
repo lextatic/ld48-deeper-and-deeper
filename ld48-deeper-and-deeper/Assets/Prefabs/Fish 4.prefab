@@ -15,6 +15,18 @@ PrefabInstance:
       propertyPath: FishData
       value: 
       objectReference: {fileID: 11400000, guid: d552e6a131f607643bef9d0599359511, type: 2}
+    - target: {fileID: 5941680980949153233, guid: 743db76c74a4f534687ef68106e4489b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.7773
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941680980949153233, guid: 743db76c74a4f534687ef68106e4489b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.7773
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941680980949153233, guid: 743db76c74a4f534687ef68106e4489b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.7773
+      objectReference: {fileID: 0}
     - target: {fileID: 5941680980949153238, guid: 743db76c74a4f534687ef68106e4489b, type: 3}
       propertyPath: m_Radius
       value: 0.1

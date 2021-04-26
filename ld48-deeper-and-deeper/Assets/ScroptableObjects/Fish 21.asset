@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a574902d8d60444a9238ebca077f3ac, type: 3}
   m_Name: Fish 21
   m_EditorClassIdentifier: 
-  Name: Fish 21
+  Name: Chest
   Sprite: {fileID: 21300000, guid: aa3da51563b711a498e9e5563b615f02, type: 3}
   Speed: 0
   Caught: 0
